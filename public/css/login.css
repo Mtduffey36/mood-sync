@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #F2F2F2;
+}
+
+/* Header section below */
+
+#header {
+    background-color: #A68E74;
+}
+
+#logo {
+    font-weight: bolder;
+}
+
+/* Styles "Log in" link at upper right corner */
+.nav-link {
+    color: #1B1D1E;
+}
+
+/* Hero section below */
+
+#hero {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), url(../assets/images/moodsync-hero.JPG);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 !important;
+}
+
+/* User login section below */
+
+#login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#login-icon {
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+#user-login {
+    margin-bottom: 20px;
+}
+
+#email {
+
+}
+
+#password {
+
+}
+
+#login-button {
+    color: #1B1D1E;
+    background-color: #EABF7F;
+    border: #EABF7F;
+}
+
+/* Footer section below */
+
+#footer {
+    background-color: #8C9E93;
+    margin: 0 !important;
+}
+
+#made-by {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* Styles text that shows the year when the app was made (2024) */
+.text-center {
+    color: #1B1D1E !important;
+}
