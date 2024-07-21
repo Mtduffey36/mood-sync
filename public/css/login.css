@@ -32,12 +32,7 @@ body {
 /* Hero section below */
 
 #hero {
-    height: 40vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), url(../assets/moodsync-hero.JPG);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: 0 !important;
+    
 }
 
 /* User login section below */
@@ -79,7 +74,6 @@ body {
     color: #1B1D1E;
     background-color: #EABF7F;
     border: #EABF7F;
-    margin-right: 20px;
 }
 
 #register-button {

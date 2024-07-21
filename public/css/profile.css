@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #F2F2F2;
+}
+
+/* Header section below */
+
+#header {
+    background-color: #A68E74;
+}
+
+#logo {
+    font-weight: bolder;
+}
+
+/* Styles link at upper right corner */
+#link {
+    margin-right: 10px;
+}
+
+#link li a {
+    color: #1B1D1E ;
+    margin: 0;
+    
+}
+
+/* Hero section below */
+
+#hero {
+    
+}
+
+/* User login section below */
+
+#quote {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+#log-mood {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+#mood-calendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+/* Footer section below */
+
+#footer {
+    background-color: #8C9E93;
+    margin: 0 !important;
+}
+
+#made-by {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* Styles text that shows the year when the app was made (2024) */
+.text-center {
+    color: #1B1D1E !important;
+}
