@@ -18,16 +18,22 @@ body {
     font-weight: bolder;
 }
 
-/* Styles "Log in" link at upper right corner */
-.nav-link {
-    color: #1B1D1E;
+/* Styles link at upper right corner */
+#link {
+    margin-right: 10px;
+}
+
+#link li a {
+    color: #1B1D1E ;
+    margin: 0;
+    
 }
 
 /* Hero section below */
 
 #hero {
-    height: 100vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), url(../assets/images/moodsync-hero.JPG);
+    height: 40vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.9)), url(../assets/moodsync-hero.JPG);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -51,7 +57,7 @@ body {
 }
 
 #user-login {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 #email {
@@ -59,10 +65,24 @@ body {
 }
 
 #password {
+    
+}
 
+#form-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
 }
 
 #login-button {
+    color: #1B1D1E;
+    background-color: #EABF7F;
+    border: #EABF7F;
+    margin-right: 20px;
+}
+
+#register-button {
     color: #1B1D1E;
     background-color: #EABF7F;
     border: #EABF7F;
