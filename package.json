@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "mood-sync",
   "version": "1.0.0",
   "description": "This is an application used to track patterns in a users mental health",
@@ -12,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
-    "cal-heatmap": "^4.2.4",
     "connect-session-sequelize": "^7.1.7",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
