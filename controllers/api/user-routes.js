@@ -2,13 +2,12 @@ const router = require('express').Router();
 const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 
-
 router.post('/signup', async (req,res) => {
     try {
         const dbUserData = await User.create({
             username: req.body.username,
             email: req.body.email,
-            password: req.body.email,
+            password: req.body.password,
             phone_number: req.body.phone_number,
         })
         res.status(201).json(dbUserData);
@@ -29,35 +28,39 @@ router.get('/', async(req, res) => {
   
   });
 
-  router.post('/login', async (req, res) => {
+ router.post('/login', async (req, res) => {
     try {
       const { username, password } = req.body;
-      console.log('Login attempt for username:', username);
-      console.log('Provided password:', password);
   
-      const user = await User.findOne({ where: { username } });
-      
-      if (!user) {
-        console.log('User not found');
+      if (!username || !password) {
+        return res.status(400).json({ message: 'Username and password are required' });
+      }
+  
+      const dbUserData = await User.findOne({ where: { username } });
+  
+      if (!dbUserData) {
         return res.status(400).json({ message: 'Incorrect username or password' });
       }
   
-      console.log('Stored hashed password:', user.password);
+      const validPassword = await dbUserData.checkPassword(password);
   
-      const isValid = await bcrypt.compare(password, user.password);
-      console.log('Direct bcrypt compare result:', isValid);
-  
-      if (!isValid) {
+      if (!validPassword) {
         return res.status(400).json({ message: 'Incorrect username or password' });
       }
   
-      // Login successful
-      res.json({ message: 'You are now logged in!' });
+        req.session.save(() => {
+        req.session.userId = dbUserData.id;
+        req.session.loggedIn = true;
+  
+        const { password: _, ...userWithoutPassword } = dbUserData.get({ plain: true });
+        res.status(200).json({ user: userWithoutPassword, message: 'You are now logged in!' });
+      });
     } catch (err) {
       console.error('Login error:', err);
-      res.status(500).json({ message: 'An error occurred during login' });
+      res.status(500).json({ message: 'An error occurred during login', error: err.message });
     }
   });
+
   
 
 module.exports = router;

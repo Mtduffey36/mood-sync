@@ -9,10 +9,10 @@ const sequelize = require('./config/connection');
 //Calling the models
 const model = require('./models/');
 
-//Routes const
+//Calling the routes
 const routes = require('./controllers');
 
-//MiddleWare
+//MiddleWare session
 app.use(session({
     secret: 'your_secret_key_here',
     resave: false,
@@ -22,10 +22,8 @@ app.use(session({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//Routes
+//Using routes
 app.use(routes);
-
-
 
 sequelize.sync({force: true}).then(()=>{
     app.listen(PORT, ()=>{
