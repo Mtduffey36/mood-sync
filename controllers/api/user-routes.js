@@ -2,7 +2,18 @@ const router = require('express').Router();
 const { User } = require('../../models');
 
 router.post('/signup', async (req,res) => {
-
+    try {
+        const dbUserData = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.email,
+            phone_number: req.body.phone_number,
+        })
+        res.status(201).json(dbUserData);
+    } catch (err) {
+        console.error('Error in user creation:', err);
+        res.status(500).json({ error: err.message });
+    }
 });
 
 router.get('/', async (req,res) => {
@@ -22,7 +33,7 @@ router.post('/login', async (req,res) => {
     }
     const vaildPassword = await dbUserData.checkPassword(password);
 
-    if(!vaildPassword) {
+    if(!validPassword) {
         return res.status(400).json({message: 'Incorrect username or password'});
     }
         req.session.save(() => {
