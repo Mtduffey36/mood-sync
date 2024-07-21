@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "mood-sync",
   "version": "1.0.0",
   "description": "This is an application used to track patterns in a users mental health",

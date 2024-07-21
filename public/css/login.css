@@ -35,6 +35,32 @@ body {
     
 }
 
+/* User registration modal below */
+
+#user-registration {
+    
+}
+
+#create-email {
+
+}
+
+#create-password {
+
+}
+
+#close-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
+}
+
+#save-changes-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
+}
+
 /* User login section below */
 
 #login-form {
@@ -55,11 +81,11 @@ body {
     margin-bottom: 50px;
 }
 
-#email {
+#login-email {
 
 }
 
-#password {
+#login-password {
     
 }
 
