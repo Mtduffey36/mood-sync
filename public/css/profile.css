@@ -34,8 +34,7 @@ body {
 #hero {
     
 }
-
-/* User login section below */
+/* Main section below */
 
 #quote {
     display: flex;
@@ -44,11 +43,28 @@ body {
     height: 50vh;
 }
 
-#log-mood {
+/* Mood log section below */
+
+#mood-log-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#feeling-today {
+    padding-bottom: 10px;
+}
+
+#write-thoughts {
+    padding-top: 50px;
+}
+
+#save-changes-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
 }
 
 #mood-calendar {
