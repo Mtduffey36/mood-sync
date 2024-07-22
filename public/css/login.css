@@ -32,9 +32,6 @@ body {
 
 /* Hero section below */
 
-#hero {
-    
-}
 
 #mood-sync-logo {
     border-radius: 50%;
@@ -42,17 +39,7 @@ body {
 
 /* User registration modal below */
 
-#user-registration {
-    
-}
 
-#create-email {
-
-}
-
-#create-password {
-
-}
 
 #close-button {
     background-color: #EABF7F;
@@ -86,13 +73,7 @@ body {
     margin-bottom: 50px;
 }
 
-#login-email {
 
-}
-
-#login-password {
-    
-}
 
 #form-buttons {
     display: flex;
