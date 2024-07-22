@@ -3,41 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoodSync</title>
+    <title>Mood-Sync</title>
 
+    <!-- Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-    
+  
+  <!-- Header -->
   <header id="header" class="d-flex flex-wrap justify-content-center py-3">
     <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
-      <span id="logo" class="fs-3 mx-3">MoodSync</span>
+      <span id="mood-sync" class="fs-3 mx-3">MOOD-SYNC</span>
     </p>
     <ul id="link" class="nav nav-pills">
-      <li id="login-link" class="nav-item"><a href="#login-form" class="nav-link">Log In</a></li>
+      <li id="login-link" class="nav-item"><a href="#login-form" class="nav-link active">Log In</a></li>
     </ul>
   </header>
   
+  <!-- Hero "logo" section -->
   <div id="hero" class="px-4 py-5 my-5 text-center">
-    <img class="d-block mx-auto mb-4" src="../assets/moodsync-logo.png" alt="" width="250" height="200">
-    <h1 class="display-5 fw-bold text-body-emphasis">Paragraph Title</h1>
+    <img id="mood-sync-logo" class="d-block mx-auto mb-4" src="../assets/moodsync-logo.png" alt="Mood-Sync Logo" width="250" height="200">
+    <h1 class="display-5 fw-bold text-body-emphasis">Find Balance</h1>
     <div class="col-lg-6 mx-auto">
-      <p class="lead mb-4">Paragraph describing who we are and what we do. Paragraph describing who we are and what we do. Paragraph describing who we are and what we do. Paragraph describing who we are and what we do. </p>
+      <p class="lead mb-4">Discover peace and harmony with Mood-Sync. Track your daily moods, visualize your emotional journey, and gain insights into your mental health. Join our community and take control of your well-being. Create a profile today and start your journey to a more balanced, happier you. </p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button id="register-button" type="submit" class="btn btn-primary">Register</button>
       </div>
     </div>
   </div>
 
+  <!-- Modal for user account creation -->
+  <div id="user-registration" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="create-email" class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+          </div>
+          <div id="create-password" class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="close-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button id="save-changes-button" type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login form section -->
   <form id="login-form">
     <img id="login-icon" src="../assets/login-icon.JPG" alt="login icon">
     <h1 id="user-login">User Login</h1>
-    <div id="email" class="mb-3">
+    <div id="login-email" class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
     </div>
-    <div id="password" class="mb-3">
+    <div id="login-password" class="mb-3">
       <label for="exampleInputPassword1" class="form-label">Password</label>
       <input type="password" class="form-control" id="exampleInputPassword1">
     </div>
@@ -46,6 +76,7 @@
     </div>
   </form>
 
+  <!-- Footer -->
   <footer id="footer" class="py-3 my-4">
     <h5 id="made-by">Made by</h5>
     <ul id="developers" class="nav justify-content-center pb-0 mb-0 mt-4">
@@ -58,6 +89,9 @@
     <p id="year-made" class="text-center text-body-secondary">© 2024</p>
   </footer>
 
+
+    <!-- Links -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="/public/js/login.js"></script>
 </body>
 </html>

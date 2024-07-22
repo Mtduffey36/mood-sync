@@ -9,13 +9,13 @@ body {
 }
 
 /* Header section below */
-
 #header {
-    background-color: #A68E74;
+    background-color: #8C9E93;
+    border-bottom: dashed 2.5px black;
 }
 
-#logo {
-    font-weight: bolder;
+#mood-sync {
+    color: #1B1D1E;
 }
 
 /* Styles link at upper right corner */
@@ -24,15 +24,32 @@ body {
 }
 
 #link li a {
+    background-color: #F2F2F2;
     color: #1B1D1E ;
     margin: 0;
-    
 }
 
 /* Hero section below */
 
-#hero {
-    
+
+#mood-sync-logo {
+    border-radius: 50%;
+}
+
+/* User registration modal below */
+
+
+
+#close-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
+}
+
+#save-changes-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
 }
 
 /* User login section below */
@@ -55,13 +72,7 @@ body {
     margin-bottom: 50px;
 }
 
-#email {
 
-}
-
-#password {
-    
-}
 
 #form-buttons {
     display: flex;
@@ -86,6 +97,7 @@ body {
 
 #footer {
     background-color: #8C9E93;
+    border-top: dashed 5px black;
     margin: 0 !important;
 }
 
@@ -94,9 +106,5 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 15px;
-}
-
-/* Styles text that shows the year when the app was made (2024) */
-.text-center {
-    color: #1B1D1E !important;
+    color: #1B1D1E;
 }
