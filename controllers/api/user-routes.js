@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 
 router.get('/signup', (req, res) => {
-  res.render('signup');
+  res.render('signup', { layout: 'main' });
  });
 
 router.post('/signup', [

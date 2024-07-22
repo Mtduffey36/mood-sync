@@ -3,7 +3,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/connection');
 const session = require('express-session');
-
+const { login } = require('./controllers/authController');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -31,6 +31,10 @@ app.use(session({
 // Routes
 const routes = require('./controllers');
 app.use(routes);
+
+//Declaring this so the modal works even at the /signup route 
+app.post('/', login);
+
 
 // Sync Sequelize and start the server
 sequelize.sync({ force: false }).then(() => {
