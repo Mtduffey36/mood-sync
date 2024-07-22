@@ -7,8 +7,6 @@ const hbs = exphbs.create({});
 const app = express();
 const PORT = process.env.PORT || 3001;
 const session = require('express-session');
-//Sequelize var
-const sequelize = require('./config/connection');
 
 //Calling the models
 const model = require('./models/');
