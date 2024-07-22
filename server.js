@@ -1,37 +1,40 @@
-// Server things
+const path = require('path');
 const express = require('express');
-const sequelize = require('./config/connection');
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({});
+const sequelize = require('./config/connection');
+const session = require('express-session');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const session = require('express-session');
 
-//Calling the models
-const model = require('./models/');
+// Set up Handlebars
+const hbs = exphbs.create({
+    partialsDir: path.join(__dirname, 'views/partials')
+});
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'views')); 
 
-//Calling the routes
-const routes = require('./controllers');
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
-//MiddleWare session
+// Session middleware
 app.use(session({
     secret: 'your_secret_key_here',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true } 
-  }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+    cookie: { secure: false } // Set to false for local development
+}));
 
-//Using routes
+// Routes
+const routes = require('./controllers');
 app.use(routes);
 
-sequelize.sync({force: true}).then(()=>{
-    app.listen(PORT, ()=>{
+// Sync Sequelize and start the server
+sequelize.sync({ force: false }).then(() => {
+    app.listen(PORT, () => {
         console.log(`Server Running on port ${PORT}`);
-    })
+    });
 });
-
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'Handlebars');
