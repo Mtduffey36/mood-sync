@@ -1,14 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Event listener for login button click
+    const loginModal = document.getElementById('loginModal');
+    if (loginModal) {
+        loginModal.addEventListener('hidden.bs.modal', function () {
+            document.body.classList.remove('modal-open');
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+        });
+    }
+
     const loginLink = document.getElementById('login-link');
     if (loginLink) {
         loginLink.addEventListener('click', function(event) {
             event.preventDefault();
-            $('#loginModal').modal('show');
+            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            loginModal.show();
         });
     }
 
-    // Event listener for form submission
     const loginForm = document.getElementById('login-form');
     if (loginForm) {
         loginForm.addEventListener('submit', function(event) {
@@ -16,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch('/', {
+            fetch('/', {  
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    const modalInstance = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                    modalInstance.hide(); // Hide the modal before redirecting
                     window.location.href = '/';
                     alert(data.message || 'You are now logged in!');
                 } else {
