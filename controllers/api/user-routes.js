@@ -21,6 +21,7 @@ router.get('/', async(req, res) => {
     try{
       const dbUserData = await User.findAll({
       });
+      // res.render('all');
       res.status(200).json(dbUserData);
     }catch (err){
       res.status(500).json(err);
