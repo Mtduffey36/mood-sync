@@ -12,7 +12,6 @@ body {
 
 #header {
     background-color: #8C9E93;
-    border-bottom: dashed 2.5px black;
 }
 
 #mood-sync {
@@ -78,7 +77,6 @@ body {
 
 #footer {
     background-color: #8C9E93;
-    border-top: dashed 5px black;
     margin: 0 !important;
     color: #1B1D1E;
 }
