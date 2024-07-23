@@ -15,5 +15,16 @@ router.get('/', async(req, res) => {
   
   });
 
+  router.post ('/:id', async (req, res) => {
+    try {
+      const dbMoodData = await Mood.Create(req.body, {
+        where: {id: req.params.id},
+      });
+    } catch(err){
+      console.log(err);
+      res.status(400).json(err);
+    }
+  });
+
 
   module.exports = router;
