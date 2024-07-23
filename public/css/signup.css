@@ -1,0 +1,14 @@
+#signup-title {
+    background-color: #1B1D1E !important;
+    color: #F2F2F2 !important;
+}
+
+#signup-button {
+    background-color: #EABF7F;
+    color: #1B1D1E;
+    border: #EABF7F;
+}
+
+#input-box {
+    margin-top: 15px;
+}
