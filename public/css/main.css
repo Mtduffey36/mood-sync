@@ -1,3 +1,4 @@
+/* Applies styling to all */
 * {
     margin: 0;
     padding: 0;
@@ -9,13 +10,13 @@ body {
 }
 
 /* Header section below */
-
 #header {
     background-color: #8C9E93;
 }
 
 #mood-sync {
     color: #1B1D1E;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 /* Styles link at upper right corner */
@@ -27,19 +28,28 @@ body {
     background-color: #F2F2F2;
     color: #1B1D1E ;
     margin: 0;
-    
 }
 
-/* Hero section below */
+/* Styles register button */
+#register-button {
+    color: #1B1D1E;
+    background-color: #EABF7F;
+    border: #EABF7F;
+}
 
+/* Footer section below */
 
-/* Main section below */
+#footer {
+    background-color: #8C9E93;
+    margin: 0 !important;
+}
 
-#quote {
+#made-by {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    margin-top: 15px;
+    color: #1B1D1E;
 }
 
 /* Mood log section below */
@@ -71,20 +81,4 @@ body {
     justify-content: center;
     align-items: center;
     height: 50vh;
-}
-
-/* Footer section below */
-
-#footer {
-    background-color: #8C9E93;
-    margin: 0 !important;
-    color: #1B1D1E;
-}
-
-#made-by {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 15px;
-    color: #1B1D1E;
 }
