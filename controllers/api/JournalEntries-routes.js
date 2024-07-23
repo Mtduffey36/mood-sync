@@ -2,19 +2,13 @@ const router = require('express').Router();
 const { JournalEntries } = require('../../models');
 const bcrypt = require('bcrypt');
 
-router.get ('/',async(req,res) => {
-    try{
-        const dbMoodData 
-    }
-})
-
-router.post ('/:mood', async (req, res) => {
-    try {
-      const dbMoodData = await Mood.Create(req.body, {
-        where: {id: req.params.id},
-      });
-    } catch(err){
-      console.log(err);
-      res.status(400).json(err);
-    }
-  });
+router.get('/', async (req, res) => {
+  try{
+    const categoryData = await Category.findAll({
+      include: [{model: Moods}]
+    });
+    res.status(200).json(categoryData);
+  }catch(err){
+    res.status(500).json(err);
+  }
+});
