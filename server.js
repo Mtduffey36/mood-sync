@@ -3,10 +3,8 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/connection');
 const session = require('express-session');
-const { login } = require('./controllers/authController');
 const app = express();
 const PORT = process.env.PORT || 3001;
-
 // Set up Handlebars
 const hbs = exphbs.create({
     partialsDir: path.join(__dirname, 'views/partials')
@@ -32,8 +30,10 @@ app.use(session({
 const routes = require('./controllers');
 app.use(routes);
 
-//Declaring this so the modal works even at the /signup route 
-app.post('/', login);
+//Declaring the root route as a /login
+app.get('/', (req, res)=>{
+    res.redirect('/login');
+})
 
 
 // Sync Sequelize and start the server
