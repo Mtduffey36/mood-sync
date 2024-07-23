@@ -1,13 +1,13 @@
-<div class="container mt-5">
+<div id="signup-container" class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card">
-        <div class="card-header bg-primary text-white">
-          <h2 class="mb-0"><center>Sign up</center></h2>
+        <di id="signup-title" class="card-header bg-primary text-white">
+          <h2 class="mb-0"><center>Create Account</center></h2>
         </div>
         <div class="card-body">
           <div id="error-message" class="alert alert-danger d-none" role="alert"></div>
-          <form id="signup-form" class="sign-form" method="POST" action="/signup">
+          <form id="input-box" class="sign-form" method="POST" action="/signup">
             <div class="mb-3">
               <label for="username" class="form-label">Username:</label>
               <input type="text" class="form-control" id="username" name="username" required>
@@ -24,7 +24,7 @@
               <label for="phone_number" class="form-label">Phone number:</label>
               <input type="tel" class="form-control" id="phone_number" name="phone_number" required>
             </div>
-            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+            <button id="signup-button" type="submit" class="btn btn-success w-100">Sign Up</button>
           </form>
           
         </div>

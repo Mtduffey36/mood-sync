@@ -1,9 +1,7 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-.header {
+/* I commented out the code below because it was also styling the rest of the website and not specifically the dashboard (We must fing a way to style this more specifically */
+
+
+/* .header {
     background-color: #333;
     color: #fff;
     text-align: center;
@@ -35,4 +33,4 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 24px;
-}
+} */
