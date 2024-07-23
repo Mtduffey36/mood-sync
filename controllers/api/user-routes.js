@@ -1,98 +1,159 @@
 const router = require('express').Router();
-const { User } = require('../../models');
 const { body, validationResult } = require('express-validator');
-const { Op } = require('sequelize');
+const { Sequelize, Op } = require('sequelize');
 const bcrypt = require('bcrypt');
+const { User } = require('../../models');
 
 router.get('/signup', (req, res) => {
-  res.render('signup', { layout: 'main' });
- });
-
-router.post('/signup', [
-body('username').trim().isLength({min: 3}).withMessage('Username must be at least 3 characters long'),
-body('email').trim().isEmail().withMessage('Must be a valid email address'),
-body('password').isLength({min: 6}).withMessage('Password must be at least 6 characters long'),
-body('phone_number').isMobilePhone().withMessage('Must be a valid phone number'),
-], async (req,res) => {
-    try {
-        const errors = validationResult(req);
-        if(!errors.isEmpty()){
-          return res.status(400).json({errors: errors.array()});
-        }
-        const existingUser = await User.findOne({
-          where: {
-            [Op.or]: [
-              {username: req.body.username},
-              {email: req.body.email},
-              {phone_number: req.body.phone_number}
-            ]
-          }
-        });
-        if(existingUser){
-          return res.status(400).json({message: 'Username, email or phone number already in use'});
-        }
-        const dbUserData = await User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
-            phone_number: req.body.phone_number,
-        });
-        const userResponse = dbUserData.toJSON();
-        delete userResponse.password;
-        res.status(201).json({
-          message: 'User created successfully',
-          user: userResponse
-        });
-        
-    } catch (err) {
-        console.error('Error in user creation:', err);
-        res.status(500).json({ error: err.message });
-    }
+  res.render('signup', { 
+      layout: 'main',
+      currentPath: req.path
+  });
 });
 
-  router.get('/', (req, res) => {
-    res.render('login');
-    
-    });
+router.get('/login', (req, res) => {
+  res.render('login', { 
+    layout: 'main',
+    currentPath: req.path
+});
+});
 
-    router.post('/', async (req, res) => { 
-      try {
-        const { username, password } = req.body;
-    
-        if (!username || !password) {
-          return res.status(400).json({ success: false, message: 'Username and password are required' });
-        }
-    
-        const dbUserData = await User.findOne({ where: { username } });
-    
-        if (!dbUserData) {
-          return res.status(400).json({ success: false, message: 'Incorrect username or password' });
-        }
-    
-        const validPassword = await dbUserData.checkPassword(password);
-    
-        if (!validPassword) {
-          return res.status(400).json({ success: false, message: 'Incorrect username or password' });
-        }
-    
-        req.session.userId = dbUserData.id;
-        req.session.loggedIn = true;
-    
-        // Use req.session.save() to ensure the session is saved before sending the response
-        req.session.save((err) => {
-          if (err) {
-            console.error('Session save error:', err);
-            return res.status(500).json({ success: false, message: 'An error occurred during login' });
-          }
-          res.json({ success: true, message: 'You are now logged in!' });
-        });
-    
-      } catch (err) {
-        console.error('Login error:', err);
-        res.status(500).json({ success: false, message: 'An error occurred during login', error: err.message });
+router.post('/signup', [
+  body('username').trim().isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
+  body('email').trim().isEmail().withMessage('Must be a valid email address'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+  body('phone_number').isMobilePhone().withMessage('Must be a valid phone number'),
+], async (req, res) => {
+  try {
+    // Validate input
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Normalize inputs
+    const username = req.body.username.toLowerCase().trim();
+    const email = req.body.email.toLowerCase().trim();
+    const password = req.body.password;
+    const phone_number = req.body.phone_number.trim();
+
+    // Check for existing user using case-insensitive search
+    const existingUser = await User.findOne({
+      where: {
+        [Op.or]: [
+          Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('username')), username),
+          Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('email')), email),
+          { phone_number: phone_number }
+        ]
       }
     });
 
-  
+    if (existingUser) {
+      console.log('Existing user found:', existingUser.toJSON());
+      if (existingUser.username.toLowerCase() === username) {
+        return res.status(400).json({ message: 'Username is already in use' });
+      }
+      if (existingUser.email.toLowerCase() === email) {
+        return res.status(400).json({ message: 'Email is already in use' });
+      }
+      if (existingUser.phone_number === phone_number) {
+        return res.status(400).json({ message: 'Phone number is already in use' });
+      }
+    }
+
+    // Create new user
+    const newUser = await User.create({
+      username,
+      email,
+      password,
+      phone_number,
+    });
+
+    console.log('New user created:', newUser.toJSON());
+
+    const userResponse = newUser.toJSON();
+    // Set up session
+    req.session.userId = newUser.id;
+    req.session.loggedIn = true;
+
+    res.status(201).json({
+      message: 'User created successfully',
+      user: userResponse
+    });
+  } catch (err) {
+    console.error('Error in user creation:', err);
+
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({ message: `${err.errors[0].path} is already in use` });
+    }
+
+    res.status(500).json({ error: 'An unexpected error occurred. Please try again.' });
+  }
+});
+
+
+
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    console.log('Login attempt for username:', username);
+
+    if (!username || !password) {
+      console.log('Missing username or password');
+      return res.status(400).json({ success: false, message: 'Username and password are required' });
+    }
+
+    const dbUserData = await User.findOne({ where: { username } });
+
+    if (!dbUserData) {
+      console.log('No user found with username:', username);
+      return res.status(400).json({ success: false, message: 'Incorrect username or password' });
+    }
+
+    console.log('User found:', dbUserData.username);
+    console.log('Stored hashed password:', dbUserData.password);
+    console.log('Provided login password:', password);
+
+    const validPassword = await dbUserData.checkPassword(password);
+    console.log('Password comparison result:', validPassword);
+
+    if (!validPassword) {
+      console.log('Invalid password for user:', username);
+      return res.status(400).json({ success: false, message: 'Incorrect username or password' });
+    }
+
+    req.session.userId = dbUserData.id;
+    req.session.loggedIn = true;
+
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).json({ success: false, message: 'An error occurred during login' });
+      }
+      console.log('Login successful for user:', username);
+      res.json({ success: true, message: 'You are now logged in!', redirectUrl: '/dashboard' });
+    });
+
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ success: false, message: 'An error occurred during login', error: err.message });
+  }
+});
+
+
+
+router.get('/dashboard', (req, res) => {
+  if (req.session.loggedIn === true) {
+    res.render('dashboard', {
+      layout: 'main',
+      currentPath: req.path
+    });
+  } else {
+    // Redirect to login if not logged in
+    res.redirect('/login');
+  }
+});
+    
 
 module.exports = router;
