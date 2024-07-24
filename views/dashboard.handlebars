@@ -4,64 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/login.css">
-<title>Dashboard Example</title>
-
+<title>Mood-Sync</title>
 </head>
-    </div>
-    <div class="container">
 
-    <!-- Mood log form section -->
-  <div id="mood-log-form">
+
+<!-- Header -->
+<header id="header" class="d-flex flex-wrap justify-content-center py-3">
+    <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
+      <span id="mood-sync" class="fs-3 mx-3">MOOD-SYNC</span>
+    </p>
+    
+    <div id="logout-button">
+    <ul class="nav nav-pills">
+        <li id="logout-button" type="submit" class="nav-link active" onclick="window.location.href='/login';">Log Out</li>
+    </ul>
+    </div>
+</header> 
+
+
+<!-- Log-Mood form -->
+<div id="mood-log-form">
     <h1 id="feeling-today">How are you feeling today?</h1>
     <div class="mb-3">
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Pick a main mood</option>
-        <!-- <option value="1">Happy</option>
-        <option value="2">Sad</option>
-        <option value="3">Angry</option>
-        <option value="4">Anxious</option>
-        <option value="5">Calm</option>
-        <option value="6">Emotionless</option> -->
-      </select>
-    </div>
-    <div class="mb-3">
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Pick a sub mood</option>
-      <!-- <option value="1">Joyful</option>
-      <option value="2">Content</option>
-      <option value="3">Cheerful</option>
-      <option value="4">Excited</option>
-      <option value="5">Depressed</option>
-      <option value="6">Down</option>
-      <option value="7">Lonely</option>
-      <option value="8">Disappointed</option>
-      <option value="9">Irritated</option>
-      <option value="10">Frustrated</option>
-      <option value="11">Hostile</option>
-      <option value="12">Resentful</option>
-      <option value="13">Nervous</option>
-      <option value="14">Worried</option>
-      <option value="15">Fearful</option>
-      <option value="16">Stressed</option>
-      <option value="17">Relaxed</option>
-      <option value="18">Peaceful</option>
-      <option value="19">Content</option>
-      <option value="20">Serene</option> -->
+    <select class="form-select" id="sub-mood-select"  //ADD THIS ID  aria-label="Default select example">
+      <option selected>Pick a main mood</option>
+      <option value="1">Happy</option>
+      <option value="2">Sad</option>
+      <option value="3">Angry</option>
+      <option value="4">Anxious</option>
+      <option value="5">Calm</option>
+      <option value="6">Emotionless</option> 
     </select>
-  </div>
+    <div class="mb-3">
+    <select class="form-select" id="sub-mood-select"  //ADD THIS ID  aria-label="Default select example">
+      <option selected>Pick a sub mood</option>
+    </select>
+
   <div id="write-thoughts" class="mb-3">
     <label for="exampleFormControlTextarea1" class="form-label">Write your thoughts and feelings below:</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
   <div>
-    <button id="save-changes-button" type="button" class="btn btn-primary">Save changes</button>
-  </div>
-  </div>
-    
-        <div class="box">Square 2</div>
-        <div class="box">Square 3</div>
-    </div>
-  
+    <button id="save-changes-button" type="button" class="btn btn-primary w-100">Save changes</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<!-- Footer -->
+<footer id="footer" class="py-3 my-4">
+    <h5 id="made-by">Made by</h5>
+    <ul id="developers" class="nav justify-content-center pb-0 mb-0 mt-4">
+      <li class="nav-item"><a href="https://github.com/Mtduffey36" class="nav-link px-2 text-body-secondary">Michael D.</a></li>
+      <li class="nav-item"><a href="https://github.com/ManuelP02" class="nav-link px-2 text-body-secondary">Manuel P.</a></li>
+      <li class="nav-item"><a href="https://github.com/Ejacosta86" class="nav-link px-2 text-body-secondary">Erica A.</a></li>
+      <li class="nav-item"><a href="https://github.com/gabrielsalazar225" class="nav-link px-2 text-body-secondary">Gabriel Z.</a></li>
+      <li class="nav-item"><a href="https://github.com/AndresAlbornozgil" class="nav-link px-2 text-body-secondary">Andres A.</a></li>
+    </ul>
+    <p id="year-made" class="text-center text-body-secondary">© 2024</p>
+</footer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="/public/js/login.js"></script>
