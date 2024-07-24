@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     try{
-        
 if(typeof CalHeatMap !== undefined) {
-
 
 const cal = new CalHeatMap();
 
@@ -16,8 +14,6 @@ const data = {
 
 const startDate = new Date('2023-01-01');
 const endDate = new Date('2023-12-31');
-
-
 
 cal.init({
     itemSelector: '#cal-heatmap',
