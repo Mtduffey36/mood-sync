@@ -1,36 +1,27 @@
-/* I commented out the code below because it was also styling the rest of the website and not specifically the dashboard (We must fing a way to style this more specifically */
-
-
-/* .header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
+#logout-button li {
+    background-color: #F2F2F2;
+    color: #1B1D1E;
+    margin-right: 15px;
 }
-.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-}
-.container {
+
+#mood-log-form {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 120px);
+    height: 100vh;
 }
-.box {
-    width: 200px;
-    height: 200px;
-    background-color: #F0F0F0;
-    border: 1px solid #ccc;
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-} */
+
+#feeling-today {
+    margin-bottom: 20px;
+}
+
+#write-thoughts {
+    margin-top: 50px;
+}
+
+#save-changes-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
+}
