@@ -9,7 +9,55 @@
 </head>
     </div>
     <div class="container">
-        <div class="box">Square 1</div>
+
+    <!-- Mood log form section -->
+  <div id="mood-log-form">
+    <h1 id="feeling-today">How are you feeling today?</h1>
+    <div class="mb-3">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Pick a main mood</option>
+        <!-- <option value="1">Happy</option>
+        <option value="2">Sad</option>
+        <option value="3">Angry</option>
+        <option value="4">Anxious</option>
+        <option value="5">Calm</option>
+        <option value="6">Emotionless</option> -->
+      </select>
+    </div>
+    <div class="mb-3">
+    <select class="form-select" aria-label="Default select example">
+      <option selected>Pick a sub mood</option>
+      <!-- <option value="1">Joyful</option>
+      <option value="2">Content</option>
+      <option value="3">Cheerful</option>
+      <option value="4">Excited</option>
+      <option value="5">Depressed</option>
+      <option value="6">Down</option>
+      <option value="7">Lonely</option>
+      <option value="8">Disappointed</option>
+      <option value="9">Irritated</option>
+      <option value="10">Frustrated</option>
+      <option value="11">Hostile</option>
+      <option value="12">Resentful</option>
+      <option value="13">Nervous</option>
+      <option value="14">Worried</option>
+      <option value="15">Fearful</option>
+      <option value="16">Stressed</option>
+      <option value="17">Relaxed</option>
+      <option value="18">Peaceful</option>
+      <option value="19">Content</option>
+      <option value="20">Serene</option> -->
+    </select>
+  </div>
+  <div id="write-thoughts" class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Write your thoughts and feelings below:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <div>
+    <button id="save-changes-button" type="button" class="btn btn-primary">Save changes</button>
+  </div>
+  </div>
+    
         <div class="box">Square 2</div>
         <div class="box">Square 3</div>
     </div>
@@ -17,4 +65,5 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="/public/js/login.js"></script>
+<script src="/models/Mood.js"></script>
 </html>
