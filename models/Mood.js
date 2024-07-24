@@ -23,6 +23,11 @@ Mood.init({
         type: DataTypes.INTEGER,
         allowNull: false
     },
+    mood_sub:{
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    
 
 
 },{
