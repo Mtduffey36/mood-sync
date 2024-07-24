@@ -13,7 +13,14 @@ if (process.env.DB_URL) {
       process.env.DB_PASSWORD,
       {
         host: 'localhost',
-        dialect: 'postgres'
+        dialect: 'postgres',
+        dialectOptions:{
+          charset: 'utf8mb4'
+        }, 
+        define:{
+          charset: 'utf8mb4',
+          collate: 'utf8mb4_unicode_ci',
+        },
       }
     );
   }
