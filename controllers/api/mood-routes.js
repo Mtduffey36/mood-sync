@@ -1,30 +1,48 @@
 const router = require('express').Router();
-const { Mood } = require('../../models');
-const bcrypt = require('bcrypt');
+const {Mood } = require('../../models');
+const Mainmood = require('../../models/MainMood');
 
 
-//doube check the route needed for mood enteries from the form
-router.get('/', async(req, res) => {
-    try{
-      const dbMoodData = await Mood.findAll({
-      });
-      res.status(200).json(dbMoodData);
-    }catch (err){
-      res.status(500).json(err);
-    }
-  
-  });
-
-  router.post ('/:id', async (req, res) => {
+//Getting dashboard to show the mood main and mood sub-categories
+router.get('/dashboard', async (req, res) => {
+  if (req.session.loggedIn === true) {
     try {
-      const dbMoodData = await Mood.Create(req.body, {
-        where: {id: req.params.id},
+      console.log('Fetching main moods...');
+      const mainMoods = await Mainmood.findAll({
+        attributes: ['id', 'main_mood_name'],
+        include: [{
+          model: Mood, 
+          as: 'submoods',
+          attributes: ['id', 'mood_name']
+        }],
+        order:[
+          ['main_mood_name', 'ASC'],
+          [{model: Mood, as: 'submoods'}, 'mood_name', 'ASC']
+        ]
       });
-    } catch(err){
-      console.log(err);
-      res.status(400).json(err);
+
+      // Convert the Sequelize instances to plain objects
+      const plainMainMoods = mainMoods.map(mood => mood.get({ plain: true }));
+
+      // Render the dashboard view with the fetched main moods
+      res.render('dashboard', {
+        layout: 'main',
+        currentPath: req.path,
+        mainMoods: plainMainMoods
+      });
+    } catch (err) {
+      console.error('Error fetching main moods:', err);
+      res.status(500).json({
+        success: false,
+        message: 'An error occurred while fetching dashboard data.',
+        error: err.message
+      });
     }
-  });
+  } else {
+    // Redirect to login if not logged in
+    res.redirect('/login');
+  }
+});
 
 
   module.exports = router;
