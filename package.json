@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "dev": "node --watch --env-file=.env server"
+    "dev": "node --watch --env-file=.env server",
+    "seed": "node seeds/mainmood-seeds.js && node seeds/mood-seeds.js"
   },
   "keywords": [],
   "author": "",
