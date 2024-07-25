@@ -1,5 +1,6 @@
 const User = require('./User');
 const Mood = require('./Mood');
+const Mainmood = require('./MainMood');
 const JournalEntries = require('./JournalEntries');
 const Resources = require('./Resources');
 
@@ -24,9 +25,20 @@ Mood.hasMany(JournalEntries, {
     onDelete: 'CASCADE'
 });
 
+Mainmood.hasMany(Mood, {
+    foreignKey: 'mood_main_id',
+    as: 'submoods'
+  });
+  
+  Mood.belongsTo(Mainmood, {
+    foreignKey: 'mood_main_id',
+    as: 'mainmood'
+  });
+
 module.exports = {
     User,
     JournalEntries, 
     Mood,
+    Mainmood,
     Resources
 };
