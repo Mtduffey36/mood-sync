@@ -1,4 +1,4 @@
-// middleware/auth.js
+middleware/auth.js
 const User = require('../models/User');
 
 const isLoggedIn = (req, res, next) => {
