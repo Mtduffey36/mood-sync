@@ -1,14 +1,28 @@
+#signup-form {
+    display: flex !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+}
+
 #signup-title {
     background-color: #1B1D1E !important;
     color: #F2F2F2 !important;
 }
 
-#signup-button {
-    background-color: #EABF7F;
-    color: #1B1D1E;
-    border: #EABF7F;
+#buttons {
+    display: flex;
 }
 
-#input-box {
-    margin-top: 15px;
+#back-button {
+    background-color: #F2F2F2;
+    border: #F2F2F2;
+    color: #1B1D1E;
+    margin-right: 10px;
+}
+
+#signup-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
+    margin-left: 10px;
 }
