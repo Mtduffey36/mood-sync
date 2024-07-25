@@ -25,7 +25,7 @@ JournalEntries.init({
     },
     created_at:{
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
 
 

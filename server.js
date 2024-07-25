@@ -3,11 +3,12 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/connection');
 const session = require('express-session');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 // Set up Handlebars
 const hbs = exphbs.create({
-    partialsDir: path.join(__dirname, 'views/partials')
+    partialsDir: path.join(__dirname, 'views/partials'),
 });
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -23,7 +24,10 @@ app.use(session({
     secret: 'your_secret_key_here',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Set to false for local development
+    cookie: { secure: false }, 
+    store: new SequelizeStore({
+        db: sequelize
+      })
 }));
 
 // Routes

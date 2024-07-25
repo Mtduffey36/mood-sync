@@ -24,36 +24,44 @@
     
     <div id="logout-button">
     <ul class="nav nav-pills">
-        <li id="logout-button" type="submit" class="nav-link active" onclick="window.location.href='/login';">Log Out</li>
+     <form id="logout-form" action="/logout" method="POST" style="display: inline;">
+  <li id="logout-button" class="nav-link active">Log Out</li>
+</form>
+        
     </ul>
     </div>
 </header> 
 
 
-<!-- Log-Mood form -->
-<div id="mood-log-form">
-    <h1 id="feeling-today">How are you feeling today?</h1>
-    <div class="mb-3">
-    <select class="form-select" id="sub-mood-select"  //ADD THIS ID  aria-label="Default select example">
-      <option selected>Pick a main mood</option>
-      <option value="1">Happy</option>
-      <option value="2">Sad</option>
-      <option value="3">Angry</option>
-      <option value="4">Anxious</option>
-      <option value="5">Calm</option>
-      <option value="6">Emotionless</option> 
-    </select>
-    <div class="mb-3">
-    <select class="form-select" id="sub-mood-select"  //ADD THIS ID  aria-label="Default select example">
-      <option selected>Pick a sub mood</option>
-    </select>
 
-  <div id="write-thoughts" class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">Write your thoughts and feelings below:</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
-  <div>
-<<<<<<< HEAD
+<!-- Log-Mood form -->
+<form id="moods" action="/dashboard" method="POST">
+    <div id="mood-log-form">
+        <h1 id="feeling-today">How are you feeling today?</h1>
+        <div class="mb-3">
+            <select class="form-select" id="main-mood" name="main_mood" aria-label="Default select example">
+                <option value="">Select a main mood</option>
+                {{#each mainMoods}}
+                    <option value="{{this.id}}">{{this.main_mood_name}}</option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" id="sub-mood" name="mood_id" aria-label="Default select example">
+                <option value="">Pick a sub mood</option>
+                {{#each mainMoods}}
+                    {{#each this.submoods}}
+                        <option value="{{this.id}}" data-main-mood="{{../id}}">{{this.mood_name}}</option>
+                    {{/each}}
+                {{/each}}
+            </select>
+        </div>
+        <div id="write-thoughts" class="mb-3">
+            <label for="content" class="form-label">Write your thoughts and feelings below:*</label>
+            <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+        </div>
+        <div>
+        <<<<<<< HEAD
     <button id="save-changes-button" type="button" class="btn btn-primary">Save changes</button>
   </div>
   </div>
@@ -63,13 +71,43 @@
     </div>
   
 =======
-    <button id="save-changes-button" type="button" class="btn btn-primary w-100">Submit</button>
-</div>
-</div>
-</div>
-</div>
+    <button id="save-changes-button" type="submit" class="btn btn-primary w-100">Save changes</button>
+        </div>
+    </div>
+</form>
+<div id="journal-entries">
+    <h2>Your Recent Entries</h2>
+    {{#if entries.length}}
+        <p>Number of entries: {{entries.length}}</p>
+        <ul>
+            {{#each entries}}
+                <li>
+                    Entry ID: {{id}}
+                    <br>
+                    Mood ID: {{mood_id}}
+                    <br>
+                    Content: {{content}}
+                    <br>
+                    {{#if mood}}
+                        Mood Name: {{mood.mood_name}}
+                        <br>
+                        Mood Score: {{mood.mood_score}}
+                    {{else}}
+                        No mood information available
+                    {{/if}}
+                    <br>
+                    <strong>{{#if mood.mood_name}}{{mood.mood_name}}{{else}}No mood name{{/if}}:</strong> 
+                    {{#if content}}{{content}}{{else}}No content{{/if}} 
+                    (Score: {{#if mood.mood_score}}{{mood.mood_score}}{{else}}No score{{/if}})
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No entries found.</p>
+    {{/if}}
+    <p>Average Mood Score: {{averageMoodScore}}</p>
 
-
+</div>
 <!-- Footer -->
 <footer id="footer" class="py-3 my-4">
     <h5 id="made-by">Made by</h5>
@@ -84,9 +122,11 @@
 </footer>
 >>>>>>> 4408a47b6d0ca2e1217dfabfdcb88f7c1b1bb327
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="/public/js/login.js"></script>
-<script src="/models/Mood.js"></script>
+<script src="../models/index.js"></script>
+<script src="./js/mood.js"></script>
+<script src="./js/logout.js"></script>
 <<<<<<< HEAD
 <script src="../public/js/heatmap.js"></script>
 </html>

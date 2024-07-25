@@ -37,7 +37,7 @@ router.post('/signup', [
     const password = req.body.password;
     const phone_number = req.body.phone_number.trim();
 
-    // Check for existing user using case-insensitive search
+    // Check for existing user 
     const existingUser = await User.findOne({
       where: {
         [Op.or]: [
@@ -47,7 +47,7 @@ router.post('/signup', [
         ]
       }
     });
-
+    //Handling errors if user exist
     if (existingUser) {
       console.log('Existing user found:', existingUser.toJSON());
       if (existingUser.username.toLowerCase() === username) {
@@ -60,8 +60,7 @@ router.post('/signup', [
         return res.status(400).json({ message: 'Phone number is already in use' });
       }
     }
-
-    // Create new user
+    // If user does not exists create user
     const newUser = await User.create({
       username,
       email,
@@ -72,14 +71,24 @@ router.post('/signup', [
     console.log('New user created:', newUser.toJSON());
 
     const userResponse = newUser.toJSON();
-    // Set up session
-    req.session.userId = newUser.id;
-    req.session.loggedIn = true;
 
-    res.status(201).json({
-      message: 'User created successfully',
-      user: userResponse
+    // Set up session so I can get the user ID after signup and make the journalEntries
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).json({ success: false, message: 'An error occurred during signup' });
+      }
+      req.session.user_id = newUser.id;
+      req.session.loggedIn = true;
+      console.log('Signup successful for user:', username);
+      res.status(201).json({
+        success: true,
+        message: 'User created successfully',
+        user: userResponse,
+        redirectUrl: '/dashboard'
+      });
     });
+
   } catch (err) {
     console.error('Error in user creation:', err);
 
@@ -123,14 +132,13 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Incorrect username or password' });
     }
 
-    req.session.userId = dbUserData.id;
-    req.session.loggedIn = true;
-
     req.session.save((err) => {
       if (err) {
         console.error('Session save error:', err);
         return res.status(500).json({ success: false, message: 'An error occurred during login' });
       }
+      req.session.user_id = dbUserData.id;
+      req.session.loggedIn = true;
       console.log('Login successful for user:', username);
       res.json({ success: true, message: 'You are now logged in!', redirectUrl: '/dashboard' });
     });
@@ -141,19 +149,16 @@ router.post('/login', async (req, res) => {
   }
 });
 
-
-
-router.get('/dashboard', (req, res) => {
-  if (req.session.loggedIn === true) {
-    res.render('dashboard', {
-      layout: 'main',
-      currentPath: req.path
-    });
-  } else {
-    // Redirect to login if not logged in
+//Logout route
+router.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      return res.status(500).json({ message: 'Error logging out' });
+    }
+    res.clearCookie('connect.sid'); 
     res.redirect('/login');
-  }
+  });
 });
-    
 
 module.exports = router;
