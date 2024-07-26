@@ -31,28 +31,9 @@ router.post('/dashboard', async (req, res) => {
         });
 
         console.log('New entry created:', JSON.stringify(newEntry, null, 2));
-
-        // Fetch the last 5 entries for the user
-        const entries = await JournalEntries.findAll({
-            where: { user_id },
-            order: [['created_at', 'DESC']],
-            limit: 5,
-            include: [{
-                model: Mood,
-                attributes: ['mood_name', 'mood_score']
-            }]
-        });
-
-        const plainEntries = entries.map(entry => entry.get({ plain: true }));
-
-        // Calculate the average mood score
-        const averageMoodScore = plainEntries.reduce((sum, entry) => sum + (entry.mood ? entry.mood.mood_score : 0), 0) / plainEntries.length;
-
         res.json({
             success: true,
             message: 'Journal entry saved successfully',
-            entries: plainEntries,
-            averageMoodScore
         });
         console.log(user_id);
     } catch (err) {
@@ -81,9 +62,23 @@ router.get('/history', async (req, res) => {
 
         const plainEntries = entries.map(entry => entry.get({ plain: true }));
 
+        console.log('Number of entries:', plainEntries.length);
+
+        let averageMoodScore = null;
+        if (plainEntries.length >= 7) {
+            averageMoodScore = plainEntries.reduce((sum, entry) => {
+                console.log('Entry mood:', entry.mood); 
+                return sum + (entry.mood ? entry.mood.mood_score : 0);
+            }, 0) / plainEntries.length;
+            averageMoodScore = averageMoodScore.toFixed(2);
+        }
+
+        console.log('Average Mood Score:', averageMoodScore); 
+
         res.render('history', {
             layout: 'main',
             entries: plainEntries,
+            averageMoodScore,
             currentPath: req.path
         });
     } catch (err) {

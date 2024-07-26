@@ -66,39 +66,6 @@
     </div>
     </div>
 </form>
-{{!-- <div id="journal-entries">
-    <h2>Your Recent Entries</h2>
-    {{#if entries.length}}
-        <p>Number of entries: {{entries.length}}</p>
-        <ul>
-            {{#each entries}}
-                <li>
-                    Entry ID: {{id}}
-                    <br>
-                    Mood ID: {{mood_id}}
-                    <br>
-                    Content: {{content}}
-                    <br>
-                    {{#if mood}}
-                        Mood Name: {{mood.mood_name}}
-                        <br>
-                        Mood Score: {{mood.mood_score}}
-                    {{else}}
-                        No mood information available
-                    {{/if}}
-                    <br>
-                    <strong>{{#if mood.mood_name}}{{mood.mood_name}}{{else}}No mood name{{/if}}:</strong> 
-                    {{#if content}}{{content}}{{else}}No content{{/if}} 
-                    (Score: {{#if mood.mood_score}}{{mood.mood_score}}{{else}}No score{{/if}})
-                </li>
-            {{/each}}
-        </ul>
-    {{else}}
-        <p>No entries found.</p>
-    {{/if}}
-    <p>Average Mood Score: {{averageMoodScore}}</p>
-
-</div>  --}}
 <div class="history-button-container">
   <a href="/history" class="btn btn-primary" id="history-button">View Journal History</a>
 </div>
@@ -114,7 +81,6 @@
     </ul>
     <p id="year-made" class="text-center text-body-secondary">© 2024</p>
 </footer>
-{{!-- 4408a47b6d0ca2e1217dfabfdcb88f7c1b1bb327 --}}
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
