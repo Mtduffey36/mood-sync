@@ -4,6 +4,7 @@ const { JournalEntries, Mood } = require('../../models');
 
 router.post('/dashboard', async (req, res) => {
     try {
+      console.log('Session user ID:', req.session.user_id);
         if (!req.session.loggedIn) {
             return res.status(401).json({ error: 'User not authenticated' });
         }
@@ -53,10 +54,43 @@ router.post('/dashboard', async (req, res) => {
             entries: plainEntries,
             averageMoodScore
         });
+        console.log(user_id);
     } catch (err) {
         console.error('Error saving journal entry:', err);
         res.status(500).json({ error: 'An error occurred while saving the journal entry.' });
     }
 });
+
+
+router.get('/history', async (req, res) => {
+  try {
+      if (!req.session.loggedIn) {
+          return res.redirect('/login');
+      }
+
+      const user_id = req.session.user_id;
+
+      const entries = await JournalEntries.findAll({
+          where: { user_id },
+          order: [['created_at', 'DESC']],
+          include: [{
+              model: Mood,
+              attributes: ['mood_name', 'mood_score']
+          }]
+      });
+
+      const plainEntries = entries.map(entry => entry.get({ plain: true }));
+
+      res.render('history', {
+          layout: 'main',
+          entries: plainEntries,
+          currentPath: req.path
+      });
+  } catch (err) {
+      console.error('Error fetching journal entries:', err);
+      res.status(500).json({ error: 'An error occurred while fetching the journal entries.' });
+  }
+});
+
 
 module.exports = router;
