@@ -1,5 +1,5 @@
 const sequelize = require('../config/connection');
-const Mainmood = require('../models/Mainmood');
+const Mainmood = require('../models/MainMood');
 
 const mainmoodData = [
   { main_mood_name: 'Happy' },
