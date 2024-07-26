@@ -36,7 +36,7 @@ const moodData = [
 ];
 
 const seedMoods = async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync({ force: false });
 
   // First, ensure that Mainmood data is seeded
   await Mainmood.bulkCreate([
