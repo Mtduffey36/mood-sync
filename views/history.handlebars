@@ -1,0 +1,48 @@
+<body>
+    <header id="header" class="d-flex flex-wrap justify-content-center py-3">
+    <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
+      <span id="mood-sync" class="fs-3 mx-3">MOOD-SYNC</span>
+    </p>
+    
+    <div id="logout-button">
+    <ul class="nav nav-pills">
+     <form id="logout-form" action="/logout" method="POST" style="display: inline;">
+  <li id="logout-button" class="nav-link active">Log Out</li>
+</form>
+        
+    </ul>
+    </div>
+</header> 
+      <h1>Your Journal Entries</h1>
+    {{#if entries.length}}
+        {{#if averageMoodScore}}
+            <p>Average Mood Score: {{averageMoodScore}}</p>
+        {{else}}
+            <p>Not enough entries to calculate average mood score. You need at least 7 entries.</p>
+        {{/if}}
+        <ul>
+            {{#each entries}}
+                <li>
+                    <strong>{{mood.mood_name}}:</strong> {{content}} (Score: {{mood.mood_score}})
+                    <br>
+                    <em>{{created_at}}</em>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No journal entries found.</p>
+    {{/if}}
+
+    <footer id="footer" class="py-3 my-4">
+    <h5 id="made-by">Made by</h5>
+    <ul id="developers" class="nav justify-content-center pb-0 mb-0 mt-4">
+      <li class="nav-item"><a href="https://github.com/Mtduffey36" class="nav-link px-2 text-body-secondary">Michael D.</a></li>
+      <li class="nav-item"><a href="https://github.com/ManuelP02" class="nav-link px-2 text-body-secondary">Manuel P.</a></li>
+      <li class="nav-item"><a href="https://github.com/Ejacosta86" class="nav-link px-2 text-body-secondary">Erica A.</a></li>
+      <li class="nav-item"><a href="https://github.com/gabrielsalazar225" class="nav-link px-2 text-body-secondary">Gabriel Z.</a></li>
+      <li class="nav-item"><a href="https://github.com/AndresAlbornozgil" class="nav-link px-2 text-body-secondary">Andres A.</a></li>
+    </ul>
+    <p id="year-made" class="text-center text-body-secondary">© 2024</p>
+</footer>
+<script src="./js/logout.js"></script>
+</body>
