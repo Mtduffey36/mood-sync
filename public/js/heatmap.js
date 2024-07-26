@@ -1,3 +1,7 @@
+module.exports = {
+
+get_heatmap: () => {
+    
 document.addEventListener('DOMContentLoaded', function() {
 
     try{
@@ -45,4 +49,4 @@ console.log("map is not defined")
 } catch (error) {
 console.log(error)
 }
-});
+})}};
