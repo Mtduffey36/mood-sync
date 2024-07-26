@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server",
     "dev": "node --watch --env-file=.env server",
-    "seed": "node seeds/mainmood-seeds.js && node seeds/mood-seeds.js"
+    "seed": "node seeds/mainmood-seeds.js && node seeds/mood-seeds.js",
+    "watch": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "express-session": "^1.18.0",
     "express-validator": "^7.1.0",
     "handlebars": "^4.7.8",
+    "nodemailer": "^6.9.14",
     "pg": "^8.12.0",
     "sequelize": "^6.37.3"
   }
