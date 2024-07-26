@@ -4,6 +4,7 @@ const subMoodOptions = subMoodSelect.querySelectorAll('option');
 const submitButton = document.getElementById('submit-mood');
 const form = document.getElementById('moods');
 
+// Main mood selection logic
 mainMoodSelect.addEventListener('change', function() {
     const selectedMainMoodId = this.value;
     
@@ -19,11 +20,12 @@ mainMoodSelect.addEventListener('change', function() {
     subMoodSelect.disabled = !selectedMainMoodId; 
 });
 
+// Trigger change event on page load to set initial state
 mainMoodSelect.dispatchEvent(new Event('change'));
 
 // Form submission logic
-form.addEventListener('submit', function(e) {
-    e.preventDefault(); // Prevent default form submission
+submitButton.addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default button behavior
 
     if (form.checkValidity()) {
         // Form is valid, proceed with submission
@@ -72,7 +74,6 @@ form.addEventListener('submit', function(e) {
 });
 
 function updateUI(entries, averageMoodScore) {
-   
     console.log('New entries:', entries);
     console.log('New average mood score:', averageMoodScore);
     location.reload();

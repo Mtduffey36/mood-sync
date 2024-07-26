@@ -63,33 +63,33 @@ router.post('/dashboard', async (req, res) => {
 
 
 router.get('/history', async (req, res) => {
-  try {
-      if (!req.session.loggedIn) {
-          return res.redirect('/login');
-      }
+    try {
+        if (!req.session.loggedIn) {
+            return res.redirect('/login');
+        }
 
-      const user_id = req.session.user_id;
+        const user_id = req.session.user_id;
 
-      const entries = await JournalEntries.findAll({
-          where: { user_id },
-          order: [['created_at', 'DESC']],
-          include: [{
-              model: Mood,
-              attributes: ['mood_name', 'mood_score']
-          }]
-      });
+        const entries = await JournalEntries.findAll({
+            where: { user_id },
+            order: [['created_at', 'DESC']],
+            include: [{
+                model: Mood,
+                attributes: ['mood_name', 'mood_score']
+            }]
+        });
 
-      const plainEntries = entries.map(entry => entry.get({ plain: true }));
+        const plainEntries = entries.map(entry => entry.get({ plain: true }));
 
-      res.render('history', {
-          layout: 'main',
-          entries: plainEntries,
-          currentPath: req.path
-      });
-  } catch (err) {
-      console.error('Error fetching journal entries:', err);
-      res.status(500).json({ error: 'An error occurred while fetching the journal entries.' });
-  }
+        res.render('history', {
+            layout: 'main',
+            entries: plainEntries,
+            currentPath: req.path
+        });
+    } catch (err) {
+        console.error('Error fetching journal entries:', err);
+        res.status(500).json({ error: 'An error occurred while fetching the journal entries.' });
+    }
 });
 
 
