@@ -1,0 +1,16 @@
+<body>
+    <h1>Your Journal Entries</h1>
+    {{#if entries.length}}
+        <ul>
+            {{#each entries}}
+                <li>
+                    <strong>{{mood.mood_name}}:</strong> {{content}} (Score: {{mood.mood_score}})
+                    <br>
+                    <em>{{created_at}}</em>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No journal entries found.</p>
+    {{/if}}
+</body>

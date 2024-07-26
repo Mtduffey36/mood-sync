@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server",
     "dev": "node --watch --env-file=.env server",
-    "seed": "node seeds/mainmood-seeds.js && node seeds/mood-seeds.js",
+    "seed": "node seeds/users-seed",
     "watch": "nodemon server.js"
-  },
+    },
   "keywords": [],
   "author": "",
   "license": "ISC",
