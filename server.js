@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
+// const nodemailer = require('./js/email');
 const sequelize = require('./config/connection');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -39,26 +40,24 @@ app.get('/', (req, res)=>{
     res.redirect('/login');
 })
 
-const nodemailer = require ("nodemailer");
+const nodemailer = require ('nodemailer');
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false, // Use `true` for port 465, `false` for all other ports
+    service: 'gmail',
     auth: {
-      user: "maddison53@ethereal.email",
-      pass: "jn7jnAPss4f63QBp6D",
-    },
+      user: 'ejacosta86',
+      pass: 'dihz wxso pbrk zxlh'
+    }
   });
 
 app.post("/send-email", async (req, res) => {
 
     const mailOptions = {
-        from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-      to: "bar@example.com, baz@example.com", // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html bod 
+      from: '"Mood-Sync" <ejacosta86@gmail.com>', // sender address
+      to: "manuelpena0207@gmail.com, aalborgil002@gmail.com, gabrielsalazar225@gmail.com", // list of receivers
+      subject: "Mood-Sync", // Subject line
+      text: "Hello from Mood-Sync", // plain text body
+      html: "<b>Things to help sync your mood!</b>", // html bod 
     }
 
     try {
@@ -73,11 +72,11 @@ app.post("/send-email", async (req, res) => {
 app.get("/test-email", async (req, res) => {
 
     const mailOptions = {
-        from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-      to: "bar@example.com, baz@example.com", // list of receivers
-      subject: "Hello ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html bod 
+      from: '"Mood-Sync" <ejacosta86@gmail.com>', // sender address
+      to: "manuelpena0207@gmail.com, aalborgil002@gmail.com, gabrielsalazar225@gmail.com", // list of receivers
+      subject: "Mood-Sync", // Subject line
+      text: "Hello from Mood-Sync", // plain text body
+      html: "<b>Things to help sync your mood!</b>", // html bod 
     }
 
     try {
@@ -90,7 +89,6 @@ app.get("/test-email", async (req, res) => {
         res.json({ success: false, error: error.message})
     }
 })
-
 
 // Sync Sequelize and start the server
 sequelize.sync({ force: false }).then(() => {
