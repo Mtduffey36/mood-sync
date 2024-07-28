@@ -2,6 +2,7 @@
     background-color: #F2F2F2;
     color: #1B1D1E;
     margin-right: 15px;
+    cursor: pointer;
 }
 
 #mood-log-form {
