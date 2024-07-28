@@ -25,27 +25,31 @@
       <p class="lead mb-4">Here, you can take a look at your log history and send an email to yourself with your entries, ensuring you have a personal record for future reference.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button id="send-email-button" type="button" class="btn btn-primary btn-lg px-4">Send Email</button>
+        <button id="view-journal" type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='#journal-entries'">View Journal</button>
       </div>
     </div>
   </div>
+  <div id="journal-entries">
+    <h1 id="my-journal">Mood Journal</h1>
     {{#if entries.length}}
         {{#if averageMoodScore}}
-            <p>Average Mood Score: {{averageMoodScore}}</p>
+            <h2>Average Mood Score: {{averageMoodScore}}</h2>
         {{else}}
-            <p>Not enough entries to calculate average mood score. You need at least 7 entries.</p>
+            <h3 id="not-enough-entries">You need at least 7 entries to calculate average mood score.</h3>
         {{/if}}
         <ul>
             {{#each entries}}
                 <li>
-                    <strong>{{mood.mood_name}}:</strong> {{content}} (Score: {{mood.mood_score}})
+                    <h5 id="entries"><strong>{{mood.mood_name}}:</strong> {{content}} (Score: {{mood.mood_score}})
                     <br>
-                    <em>{{created_at}}</em>
+                    <em>{{created_at}}</em></h5>
                 </li>
             {{/each}}
         </ul>
     {{else}}
         <p>No journal entries found.</p>
     {{/if}}
+    </div>
 
 
     {{!-- Footer --}}
