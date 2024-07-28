@@ -21,7 +21,7 @@ const endDate = new Date('2023-12-31');
 
 cal.init({
     itemSelector: '#cal-heatmap',
-    domain: 'month',
+    domain: 'week',
     subDomain: 'x_day',
     data: data,
     start: startDate,
@@ -33,9 +33,10 @@ cal.init({
     range: 12,
     legend: [1, 2, 3, 4, 5],
     legendColors: {
-        min: '#d6e685',
-        max: '#1e6823',
-        empty: '#eeeeee'
+        min: '#fbffbe',
+        max: '#305920',
+        empty: 'black',
+        base: 'blue'
     },
     itemName: ['entry', 'entries'],
     subDomainTitleFormat: {
