@@ -7,4 +7,5 @@ router.use('/', userRoutes);
 router.use('/', moodRoutes);
 router.use('/', JournalRoutes);
 
+
 module.exports = router;
