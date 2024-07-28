@@ -40,45 +40,25 @@ app.get('/', (req, res)=>{
     res.redirect('/login');
 })
 
-const nodemailer = require ('nodemailer');
-
-const sendEmail = async (mailOptions) => {
+//email 
+const { sendEmail } = require('./public/js/email');
+app.post("/dashboard/send-email", async (req, res) => {
+    const mailOptions = {
+      from: '"Mood-Sync" <ejacosta86@gmail.com>',
+      to: "manuelpena0207@gmail.com, aalborgil002@gmail.com, gabrielsalazar225@gmail.com",
+      subject: "Mood-Sync Update",
+      text: "Hello from Mood-Sync! Here's your mood update.",
+      html: "<b>Hello from Mood-Sync!</b><p>Here's your mood update.</p>",
+    };
+  
     try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log("Email sent:", info.messageId);
-        return { success: true, messageId: info.messageId};
+      const result = await sendEmail(mailOptions);
+      res.json(result);
     } catch (error) {
-        console.error("Error sending email:", error);
-        return { success: false, error: error.message };
-    }
-};
-
-transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'ejacosta86',
-      pass: 'dihz wxso pbrk zxlh'
+      console.error('Error sending email:', error);
+      res.status(500).json({ success: false, error: error.message });
     }
   });
-
-app.post("/send-email", async (req, res) => {
-    const { subject, text, html, recipients } = req.body;
-
-    const mailOptions = {
-      from: '"Mood-Sync" <ejacosta86@gmail.com>', // sender address
-      to: recipients || "manuelpena0207@gmail.com, aalborgil002@gmail.com, gabrielsalazar225@gmail.com", // list of receivers
-      subject: subject || "Mood-Sync", // Subject line
-      text: text || "Hello from Mood-Sync", // plain text body
-      html: html || "<b>Things to help sync your mood!</b>",// html bod 
-    };
-
-   
-    const result = await sendEmail(mailOptions);
-    res.json(result);
- 
-});
-
-
 
 // Sync Sequelize and start the server
 sequelize.sync({ force: false }).then(() => {
