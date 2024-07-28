@@ -1,19 +1,33 @@
 <body>
+
+    {{!-- Header --}}
     <header id="header" class="d-flex flex-wrap justify-content-center py-3">
     <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
-      <span id="mood-sync" class="fs-3 mx-3">MOOD-SYNC</span>
+      <span id="mood-sync" class="fs-3 mx-3">Mood-Sync</span>
     </p>
+
+    <button id="back-button" type="button" class="btn btn-primary btn-lg px-4" onclick="location.href='/dashboard'">Back</button>
     
     <div id="logout-button">
     <ul class="nav nav-pills">
      <form id="logout-form" action="/logout" method="POST" style="display: inline;">
-  <li id="logout-button" class="nav-link active">Log Out</li>
+    <button id="logout-button" type="submit" class="btn btn-primary btn-lg px-4 gap-3">Log Out</button>
 </form>
     </ul>
     </div>
-
 </header> 
-      <h1>Your Journal Entries</h1>
+
+{{!-- Mood & Journal Entries --}}
+<div class="px-4 py-5 my-5 text-center">
+    <img src="/images/logo2.png" alt="" height="200px"><br><br>
+    <h1 class="display-5 fw-bold text-body-emphasis">Mood & Journal Entries</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Here, you can take a look at your log history and send an email to yourself with your entries, ensuring you have a personal record for future reference.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button id="send-email-button" type="button" class="btn btn-primary btn-lg px-4">Send Email</button>
+      </div>
+    </div>
+  </div>
     {{#if entries.length}}
         {{#if averageMoodScore}}
             <p>Average Mood Score: {{averageMoodScore}}</p>
@@ -33,6 +47,8 @@
         <p>No journal entries found.</p>
     {{/if}}
 
+
+    {{!-- Footer --}}
     <footer id="footer" class="py-3 my-4">
     <h5 id="made-by">Made by</h5>
     <ul id="developers" class="nav justify-content-center pb-0 mb-0 mt-4">
@@ -45,4 +61,27 @@
     <p id="year-made" class="text-center text-body-secondary">© 2024</p>
 </footer>
 <script src="./js/logout.js"></script>
+
+<script>
+  document.getElementById('send-email-button').addEventListener('click', function() {
+    fetch('/history', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Email sent successfully!');
+        } else {
+            alert('Failed to send email: ' + data.error);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while sending the email.');
+    });
+});
+</script>
 </body>

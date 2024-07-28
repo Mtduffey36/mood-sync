@@ -27,9 +27,10 @@ body {
 
 #mood-sync {
     color: #1B1D1E;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+    cursor: pointer;
 }
-
 
 /* Styles register button */
 #register-button {

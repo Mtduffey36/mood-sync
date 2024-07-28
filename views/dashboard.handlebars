@@ -14,13 +14,13 @@
 <!-- Header -->
 <header id="header" class="d-flex flex-wrap justify-content-center py-3">
     <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
-      <span id="mood-sync" class="fs-3 mx-3">MOOD-SYNC</span>
+      <span id="mood-sync" class="fs-3 mx-3">Mood-Sync</span>
     </p>
     
     <div id="logout-button">
     <ul class="nav nav-pills">
      <form id="logout-form" action="/logout" method="POST" style="display: inline;">
-  <li id="logout-button" class="nav-link active" aria-current="page">Log Out</li>
+        <button id="logout-button" type="submit" class="btn btn-primary btn-lg px-4 gap-3">Log Out</button>
 </form>
         
     </ul>
@@ -28,14 +28,32 @@
 </header> 
 
 
+{{!-- Welcome --}}
+<div id="mood-dashboard" class="px-4 py-5 my-5 text-center">
+    <img src="/images/logo2.png" alt="" height="200px">
+    <br><br>
+    <h1 class="display-5 fw-bold text-body-emphasis">Mood Dashboard</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Here, you can easily log your mood, view your mood history, and access your journal. Take control of your emotional well-being with these powerful tools at your fingertips. Track your progress, reflect on your journey, and gain valuable insights into your mental health.</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button id="log-mood-button" type="button" class="btn btn-primary btn-lg px-4 gap-3" onclick="location.href='#moods'">Log Mood</button>
+        <button id="mood-history-button" type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='#mood-history'">Mood History</button>
+        <div class="history-button-container">
+        <a id="view-journal-button" href="/history" class="btn btn-primary btn-lg px-4" id="history-button">View Journal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <!-- Log-Mood form -->
 <form id="moods" action="/dashboard" method="POST">
     <div id="mood-log-form">
         <h1 id="feeling-today">How are you feeling today?</h1>
-        <div class="mb-3">
+        <br><br>
+        <div id="feeling-today" class="mb-3">
             <select class="form-select" id="main-mood" name="main_mood" aria-label="Default select example" required>
-                <option value="">Select a main mood</option>
+                <option value="">Pick primary mood</option>
                 {{#each mainMoods}}
                     <option value="{{this.id}}">{{this.main_mood_name}}</option>
                 {{/each}}
@@ -43,7 +61,7 @@
         </div>
         <div class="mb-3">
             <select class="form-select" id="sub-mood" name="mood_id" aria-label="Default select example" required>
-                <option value="">Pick a sub mood</option>
+                <option value="">Pick secondary mood</option>
                 {{#each mainMoods}}
                     {{#each this.submoods}}
                         <option value="{{this.id}}" data-main-mood="{{../id}}">{{this.mood_name}}</option>
@@ -52,21 +70,20 @@
             </select>
         </div>
         <div id="write-thoughts" class="mb-3">
-            <label for="content" class="form-label">Write your thoughts and feelings below:*</label>
+            <label for="content" class="form-label"><h4>Write your thoughts and feelings below:</h4></label>
             <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
         </div>
         <div>
-      
-        <button> send email </button>
-    <button id="submit-mood" type="button" class="btn btn-primary">Save changes</button>
+        <button id="submit-mood-button" type="button" class="btn btn-primary btn-lg px-4">Submit</button>
   </div>
   </div>
-        <div class="box">Square 3</div>
+    <div id="mood-history-section">
+        <div id="mood-history" class="box"><h1>Mood History</h1></div><br><br>
         <div id="cal-heatmap"></div>
+    </div>
 </form>
-<div class="history-button-container">
-  <a href="/history" class="btn btn-primary" id="history-button">View Journal History</a>
-</div>
+
+
 <!-- Footer -->
 <footer id="footer" class="py-3 my-4">
     <h5 id="made-by">Made by</h5>

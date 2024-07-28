@@ -1,5 +1,6 @@
-#logout-button li {
+#logout-form button{
     background-color: #F2F2F2;
+    border: #F2F2F2;
     color: #1B1D1E;
     margin-right: 15px;
     cursor: pointer;
@@ -13,6 +14,29 @@
     height: 100vh;
 }
 
+/* Mood dashboard */
+#log-mood-button {
+    background-color: #EABF7F;
+    border: #EABF7F;
+    color: #1B1D1E;
+}
+
+#mood-history-button {
+    background-color: #A68E74;
+    border: #A68E74;
+    color: #1B1D1E;
+}
+
+#view-journal-button {
+    background-color: #73726D;
+    border: #73726D;
+    color: #1B1D1E;
+}
+
+#feeling-today {
+    font-weight: bolder;
+}
+
 #feeling-today {
     margin-bottom: 20px;
 }
@@ -21,8 +45,27 @@
     margin-top: 50px;
 }
 
-#save-changes-button {
+#submit-mood-button {
     background-color: #EABF7F;
     border: #EABF7F;
     color: #1B1D1E;
+}
+
+#mood-history-section {
+    height: 100vh;
+}
+
+#mood-history {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+}
+
+#mood-history, h1 {
+    font-weight: bolder;
+}
+
+#cal-heatmap {
+
 }

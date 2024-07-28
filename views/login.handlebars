@@ -1,12 +1,12 @@
 <!-- Header -->
 <header id="header" class="d-flex flex-wrap justify-content-center py-3">
     <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
-      <span id="mood-sync" class="fs-3 mx-3">MOOD-SYNC</span>
+      <span id="mood-sync" class="fs-3 mx-3">Mood-Sync</span>
     </p>
 
-    <div id="login-button">
+    <div id="login-link">
     <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#login-form" class="nav-link active" aria-current="page">Log In</a></li>
+        <button id="login-button" type="button" class="btn btn-primary btn-lg px-4" onclick="location.href='#login-form'">Log In</button>
     </ul>
     </div>
 </header> 
@@ -20,7 +20,7 @@
       <p class="lead mb-4">Discover peace and harmony with Mood-Sync. Track your daily moods, visualize your emotional journey, and gain insights into your mental health. Join our community and take control of your well-being. Create a profile today and start your journey to a more balanced, happier you.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <a href="/signup">
-         <button id="register-button" type="submit" class="btn btn-primary">Register</button>
+         <button id="register-button" type="submit" class="btn btn-primary btn-lg px-4 gap-3">Register</button>
         </a>
       </div>
     </div>
@@ -41,7 +41,7 @@
     <input type="password" class="form-control" id="password" name="password" required>
   </div>
   <div class="d-grid">
-    <button id="account-login-button" type="submit" class="btn btn-primary">Log in</button>
+    <button id="account-login-button" type="submit" class="btn btn-primary btn-lg px-4 gap-3">Log in</button>
   </div>
 </form>
 

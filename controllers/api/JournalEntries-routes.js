@@ -87,5 +87,43 @@ router.get('/history', async (req, res) => {
     }
 });
 
+router.get('/dashboard', async (req, res) => {
+    try {
+        if (!req.session.loggedIn) {
+            return res.status(401).json({ error: 'User not logged in' });
+        }
+
+        const user_id = req.session.user_id;
+
+        const entries = await JournalEntries.findAll({
+            where: { user_id },
+            order: [['created_at', 'DESC']],
+            include: [{
+                model: Mood,
+                attributes: ['mood_score']
+            }]
+        });
+
+        const moodScores = entries.map(entry => {
+            const plainEntry = entry.get({ plain: true });
+            return plainEntry.mood ? plainEntry.mood.mood_score : null;
+        }).filter(score => score !== null);
+
+        let averageMoodScore = null;
+        if (moodScores.length >= 7) {
+            averageMoodScore = moodScores.reduce((sum, score) => sum + score, 0) / moodScores.length;
+            averageMoodScore = parseFloat(averageMoodScore.toFixed(2));
+        }
+
+        res.json({
+            moodScores: moodScores,
+            averageMoodScore: averageMoodScore
+        });
+    } catch (err) {
+        console.error('Error fetching mood scores:', err);
+        res.status(500).json({ error: 'An error occurred while fetching the mood scores.' });
+    }
+});
+
 
 module.exports = router;
