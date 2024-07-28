@@ -61,4 +61,27 @@
     <p id="year-made" class="text-center text-body-secondary">© 2024</p>
 </footer>
 <script src="./js/logout.js"></script>
+
+<script>
+  document.getElementById('send-email-button').addEventListener('click', function() {
+    fetch('/history', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Email sent successfully!');
+        } else {
+            alert('Failed to send email: ' + data.error);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while sending the email.');
+    });
+});
+</script>
 </body>
