@@ -161,4 +161,13 @@ router.post('/logout', (req, res) => {
   });
 });
 
+//email route
+router.get('/dashboard/send-email', (req, res) => {
+  res.render('dashboard', { 
+      layout: 'main',
+      currentPath: req.path
+  });
+});
+
+
 module.exports = router;
