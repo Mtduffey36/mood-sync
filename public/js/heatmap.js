@@ -8,20 +8,20 @@ if(typeof CalHeatMap !== undefined) {
 const cal = new CalHeatMap();
 
 const data = {
-    '2023-07-01': 1,
-    '2023-07-02': 2,
-    '2023-07-03': 3,
+    '2024-07-01': 10,
+    '2024-07-02': 20,
+    '2024-07-03': 30,
 
 };
 
-const startDate = new Date('2023-01-01');
-const endDate = new Date('2023-12-31');
+const startDate = new Date('2024-01-01');
+const endDate = new Date('2024-12-31');
 
 
 
 cal.init({
     itemSelector: '#cal-heatmap',
-    domain: 'week',
+    domain: 'month',
     subDomain: 'x_day',
     data: data,
     start: startDate,
@@ -31,7 +31,8 @@ cal.init({
     tooltip: true,
     domainGutter: 10,
     range: 12,
-    legend: [1, 2, 3, 4, 5],
+    subDomainTextFormat: '%d',
+    legend: [10, 20, 30, 40],
     legendColors: {
         min: '#fbffbe',
         max: '#305920',
