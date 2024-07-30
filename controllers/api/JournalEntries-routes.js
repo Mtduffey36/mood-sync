@@ -3,6 +3,7 @@ const router = express.Router();
 require('dotenv').config();
 const { sendEmail } = require('../../public/js/email');
 const { User, JournalEntries, Mood } = require('../../models');
+
 router.post('/dashboard', async (req, res) => {
     try {
       console.log('Session user ID:', req.session.user_id);
@@ -36,6 +37,8 @@ router.post('/dashboard', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while saving the journal entry.' });
     }
 });
+
+
 router.get('/history', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -50,17 +53,40 @@ router.get('/history', async (req, res) => {
                 attributes: ['mood_name', 'mood_score']
             }]
         });
-        const plainEntries = entries.map(entry => entry.get({ plain: true }));
+        const plainEntries = entries.map(entry => {
+            const plainEntry = entry.get({ plain: true });
+            // Format the created_at date
+            plainEntry.formatted_date = new Date(plainEntry.created_at).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            return plainEntry;
+        });
         console.log('Number of entries:', plainEntries.length);
+
         let averageMoodScore = null;
-        if (plainEntries.length >= 7) {
-            averageMoodScore = plainEntries.reduce((sum, entry) => {
-                console.log('Entry mood:', entry.mood);
-                return sum + (entry.mood ? entry.mood.mood_score : 0);
+        if (plainEntries.length > 0) {
+            averageMoodScore = plainEntries.reduce((score, entry) => {
+                if (entry.mood && entry.mood.mood_score !== null) {
+                    const currentScore = entry.mood.mood_score;
+                    // Normalize by subtracting negative scores and adding positive scores
+                    return currentScore >= 0 ? score + currentScore : score - Math.abs(currentScore);
+                }
+                return score;
             }, 0);
+
+            // Ensure the final score is within the range of -14 to +21
+            averageMoodScore = Math.max(-14, Math.min(21, averageMoodScore));
+            
+            // Round to two decimal places
             averageMoodScore = averageMoodScore.toFixed(2);
         }
-        console.log('Average Mood Score:', averageMoodScore);
+
+        console.log('Cumulative Mood Score:', averageMoodScore);
+
         res.render('history', {
             layout: 'main',
             entries: plainEntries,
@@ -72,6 +98,9 @@ router.get('/history', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching the journal entries.' });
     }
 });
+
+
+
 router.get('/dashboard', async (req, res) => {
     try {
         if (!req.session.loggedIn) {
@@ -109,6 +138,8 @@ router.get('/dashboard', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching the mood scores.' });
     }
 });
+
+
 router.post("/history", async (req, res) => {
     if (!req.session.loggedIn || !req.session.user_id) {
         return res.status(401).json({ success: false, message: 'User not logged in' });
@@ -134,11 +165,21 @@ router.post("/history", async (req, res) => {
             const plainEntry = entry.get({ plain: true });
             return plainEntry.mood ? plainEntry.mood.mood_score : null;
         }).filter(score => score !== null);
+        
         let averageMoodScore = null;
-        if (moodScores.length >= 7) {
-            averageMoodScore = moodScores.reduce((sum, score) => sum + score, 0);
+        if (moodScores.length > 0) {
+            averageMoodScore = moodScores.reduce((score, currentScore) => {
+                // Normalize by subtracting negative scores and adding positive scores
+                return currentScore >= 0 ? score + currentScore : score - Math.abs(currentScore);
+            }, 0);
+
+            // Ensure the final score is within the range of -14 to +21
+            averageMoodScore = Math.max(-14, Math.min(21, averageMoodScore));
+
+            // Round to two decimal places
             averageMoodScore = parseFloat(averageMoodScore.toFixed(2));
         }
+
         // Define email content based on average mood score
         let emailContent;
         if (averageMoodScore > 14) {
@@ -220,5 +261,5 @@ router.post("/history", async (req, res) => {
             stack: err.stack
         });
     }
-  });
+});
 module.exports = router;

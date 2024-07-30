@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const {Mood } = require('../../models');
-const Mainmood = require('../../models/MainMood');
+const { JournalEntries, Mainmood, Mood } = require('../../models');
 
 
 //Getting dashboard to show the mood main and mood sub-categories
@@ -44,42 +43,50 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
-router.get('/moodData', async(req, res) => {
-  try{
-    const moodData = await Mood.findAll({
-      attributes: [
-        'id', 'mood_name', 'mood_score', 'createdAt', 'mood_main_id'
-      ],
+
+//HeatMap Route
+router.get('/moodData', async (req, res) => {
+  try {
+    if (!req.session.loggedIn) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+    
+    const user_id = req.session.user_id;
+    if (!user_id) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    const journalEntries = await JournalEntries.findAll({
+      where: { user_id },
+      attributes: ['createdAt'],
       include: [{
-        model: Mainmood,  
-        attributes: ["main_mood_name"],
-        as:"mainmood"
+        model: Mood,
+        attributes: ['mood_main_id']
       }]
     });
 
-    const data = moodData.reduce((accumulator, currentValue) => {
-      const formattedTime = Math.floor(new Date(currentValue.createdAt).getTime() / 1000)
-      console.log("formatted unix time i hope", formattedTime)
+    console.log("Raw Journal Entries:", JSON.stringify(journalEntries, null, 2));
 
-      const moodMainId = currentValue.mood_main_id;
-      console.log("this is main mood i hope", moodMainId)
+    const data = journalEntries.reduce((accumulator, entry) => {
+      const formattedTime = Math.floor(new Date(entry.createdAt).getTime() / 1000);
+      const moodMainId = entry.mood ? entry.mood.mood_main_id : 0;
 
-      if(!accumulator[formattedTime]) {
-        accumulator[formattedTime] = 0;
-      }
+      console.log("Processing entry:", {
+        createdAt: entry.createdAt,
+        moodMainId
+      });
 
-      // accumulator[moodMainId][formattedTime] = (accumulator[moodMainId][formattedTime] || 0) + 1;
-      accumulator[formattedTime] += 1;
+      accumulator[formattedTime] = moodMainId;
 
       return accumulator;
-    }, {})
+    }, {});
 
-    res.json(data)
-    console.log("pls work data", data)
-  } catch(err) {
-    console.log(err);
-  } 
+    res.json(data);
+    console.log("Processed data:", data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'An error occurred while fetching the mood data.' });
+  }
 });
-
 
   module.exports = router;
