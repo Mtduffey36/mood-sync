@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
 <link rel="stylesheet" href="../css/login.css">
 <title>Mood-Sync</title>
 </head>
@@ -27,7 +30,7 @@
 
 {{!-- Welcome --}}
 <div id="mood-dashboard" class="px-4 py-5 my-5 text-center">
-    <img src="/images/logo2.png" alt="Mood-Sync Logo" width="250" height="200px">
+    <img src="/images/logo2.png" alt="" height="200px">
     <br><br>
     <h1 class="display-5 fw-bold text-body-emphasis">Mood Dashboard</h1>
     <div class="col-lg-6 mx-auto">
@@ -35,9 +38,8 @@
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button id="log-mood-button" type="button" class="btn btn-primary btn-lg px-4 gap-3" onclick="location.href='#moods'">Log Mood</button>
         <button id="mood-history-button" type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="location.href='#mood-history'">Mood History</button>
-        <div class="history-button-container">
         <a id="view-journal-button" href="/history" class="btn btn-primary btn-lg px-4" id="history-button">View Journal</a>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -71,7 +73,7 @@
             <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
         </div>
         <div>
-        <button id="submit-mood-button" type="button" class="btn btn-primary btn-lg px-4">Submit</button>
+        <button id="submit-mood" type="button" class="btn btn-primary btn-lg px-4">Submit</button>
   </div>
   </div>
     <div id="mood-history-section">
@@ -96,8 +98,8 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-{{!-- <script src="../models/index.js"></script> --}}
-{{!-- <script src="./js/mood.js"></script> --}}
+<script src="../models/index.js"></script>
+<script src="./js/mood.js"></script>
 <script src="./js/logout.js"></script>
 <script src="./js/heatmap.js"></script>
-</html>
+</html> 
