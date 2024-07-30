@@ -44,5 +44,42 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
+router.get('/moodData', async(req, res) => {
+  try{
+    const moodData = await Mood.findAll({
+      attributes: [
+        'id', 'mood_name', 'mood_score', 'createdAt', 'mood_main_id'
+      ],
+      include: [{
+        model: Mainmood,  
+        attributes: ["main_mood_name"],
+        as:"mainmood"
+      }]
+    });
+
+    const data = moodData.reduce((accumulator, currentValue) => {
+      const formattedTime = Math.floor(new Date(currentValue.createdAt).getTime() / 1000)
+      console.log("formatted unix time i hope", formattedTime)
+
+      const moodMainId = currentValue.mood_main_id;
+      console.log("this is main mood i hope", moodMainId)
+
+      if(!accumulator[formattedTime]) {
+        accumulator[formattedTime] = 0;
+      }
+
+      // accumulator[moodMainId][formattedTime] = (accumulator[moodMainId][formattedTime] || 0) + 1;
+      accumulator[formattedTime] += 1;
+
+      return accumulator;
+    }, {})
+
+    res.json(data)
+    console.log("pls work data", data)
+  } catch(err) {
+    console.log(err);
+  } 
+});
+
 
   module.exports = router;
