@@ -150,6 +150,8 @@ router.post("/history", async (req, res) => {
                          <li>Celebrate your achievements</li>
                          <li>Share your positive energy with others</li>
                          <li>Set new goals to maintain your momentum</li>
+                         <li>Stay in the present</li>
+                         <li>Get a good night's sleep</li>
                        </ul>`
             };
         } else if (averageMoodScore >= -6 && averageMoodScore <= 13) {
@@ -161,6 +163,7 @@ router.post("/history", async (req, res) => {
                          <li>Set a new personal goal</li>
                          <li>Try a new hobby</li>
                          <li>Plan a fun activity with friends</li>
+                         <li>Say some words of affirmation to yourself</li>
                        </ul>`
             };
         } else if (averageMoodScore >= -13 && averageMoodScore < -6) {
@@ -172,6 +175,7 @@ router.post("/history", async (req, res) => {
                          <li>Practice daily gratitude</li>
                          <li>Engage in regular physical activity</li>
                          <li>Reach out to a friend or family member</li>
+                         <li>Take a break! Disconnect from your phone and social media</li>
                        </ul>`
             };
         } else if (averageMoodScore < -13) {
@@ -183,19 +187,32 @@ router.post("/history", async (req, res) => {
                          <li>Consider talking to a mental health professional</li>
                          <li>Practice self-care activities daily</li>
                          <li>Try mindfulness or meditation techniques</li>
+                         <li>Consider taking a break from social platforms</li>
                        </ul>`
             };
         }
         if (!emailContent) {
             return res.status(400).json({ success: false, message: 'Unable to generate email content' });
         }
+        
         const mailOptions = {
             from: '"Mood-Sync" <your-app-email@gmail.com>',
             to: user.email,
             subject: emailContent.subject,
             text: emailContent.text,
             html: emailContent.html,
+            attachments: [{
+                filename: 'logo1.png',
+                path: '/images/to/logo1.png',
+                cid: 'unique@gmail.com'
+            }]
         };
+        
+        const html = `
+        <img src= "cid:unique@gmail.com" width:"200">`
+       
+        
+
         // Send the email
         const result = await sendEmail(mailOptions);
         console.log(`Email sent to ${user.email}: `, result.messageId);
