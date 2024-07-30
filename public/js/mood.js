@@ -3,7 +3,7 @@ const subMoodSelect = document.getElementById('sub-mood');
 const subMoodOptions = subMoodSelect.querySelectorAll('option');
 const submitButton = document.getElementById('submit-mood');
 const form = document.getElementById('moods');
-
+console.log(mainMoodSelect);
 // Main mood selection logic
 mainMoodSelect.addEventListener('change', function() {
     const selectedMainMoodId = this.value;
