@@ -1,35 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-
+    fetch('/moodData')
+    .then(response => response.json())
+    .then(data => {
+    console.log("data", data)
     try{
         
 if(typeof CalHeatMap !== undefined) {
 
-
 const cal = new CalHeatMap();
+console.log("cal heat map init", data)
 
 // const data = {
-    
-// }
+//     "1719893579": 2, // 2024-07-01
+//     "1719878400": 3, // 2024-07-02
+//     "1719964800": 4, // 2024-07-03
+//   };
 
-// const data = [
-//     {date: '2024-01-01', value: 1},
-//     {date: '2024-01-02', value: 2},
-//     {date: '2024-01-03', value: 3}
-    
-// ]
-
-// const data = [
-//     { year: 2024, month: 1, day: 1, value: 10 }
-// ];
-
-const data = {
-    "1719792000": 1, // 2024-07-01
-    "1719878400": 2, // 2024-07-02
-    "1719964800": 3, // 2024-07-03
-  };
-
-const startDate = new Date('2024-01-01');
-const endDate = new Date('2024-12-31');
+// const startDate = new Date('2024-01-01');
+// const endDate = new Date('2024-12-31');
 
 console.log("data", data)
 
@@ -38,8 +26,6 @@ cal.init({
     domain: 'month',
     subDomain: 'x_day',
     data: data,
-    start: startDate,
-    end: endDate,
     cellSize: 20,
     cellRadius: 5,
     tooltip: true,
@@ -66,4 +52,5 @@ console.log("map is not defined")
 } catch (error) {
 console.log(error)
 }
-});
+}) 
+})
