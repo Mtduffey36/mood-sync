@@ -9,12 +9,13 @@ const DEPRESSED_MOOD_ID = '4';
 // Main mood selection logic
 mainMoodSelect.addEventListener('change', function() {
     const selectedMainMoodId = this.value;
-    
+     
     subMoodOptions.forEach(option => {
         if (option.value === "" || option.dataset.mainMood === selectedMainMoodId) {
             option.style.display = '';
         } else {
             option.style.display = 'none';
+            
         }
     });
 
