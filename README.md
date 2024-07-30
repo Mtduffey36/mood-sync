@@ -22,11 +22,11 @@ Deployed on [Render](https://moodsync-f64p.onrender.com/)
 ![image of Mood-Sync Website](./public/images/Mood-Sync-features.JPG)
 
 ## Credits
-Manuel Pena
-Michael Duffey
-Erica Acosta
-Gabriel Salazar
-Andres Albornoz
+-Manuel Pena
+-Michael Duffey
+-Erica Acosta
+-Gabriel Salazar
+-Andres Albornoz
 
 ## License
 MIT License.
