@@ -4,6 +4,8 @@ const subMoodOptions = subMoodSelect.querySelectorAll('option');
 const submitButton = document.getElementById('submit-mood');
 const form = document.getElementById('moods');
 
+const DEPRESSED_MOOD_ID = '4'; 
+
 // Main mood selection logic
 mainMoodSelect.addEventListener('change', function() {
     const selectedMainMoodId = this.value;
@@ -39,6 +41,9 @@ submitButton.addEventListener('click', function(e) {
 
         console.log('Sending data:', data);
 
+        // Check if the mood is "depressed"
+        const isDepressed = data.mood_id === DEPRESSED_MOOD_ID;
+
         // Send the form data to the server
         fetch('/dashboard', {
             method: 'POST',
@@ -54,8 +59,13 @@ submitButton.addEventListener('click', function(e) {
             return response.json();
         })
         .then(data => {
+            console.log('Response data:', data); 
             if (data.success) {
-                alert('Mood logged successfully!');
+                if (isDepressed) {
+                    alert('Are you ok? Do you need someone to talk to? Reach out and call a friend or Please call the national hotline at (800) 662-HELP (4357)');
+                } else {
+                    alert('Mood logged successfully!');
+                }
                 updateUI(data.entries, data.averageMoodScore);
             } else {
                 throw new Error(data.error || 'Unknown error occurred');

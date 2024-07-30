@@ -28,6 +28,7 @@ Mood.init({
 
 createdAt: {
     type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW, 
     allowNull: true
   },
   updatedAt: {
