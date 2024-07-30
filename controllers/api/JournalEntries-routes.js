@@ -201,16 +201,8 @@ router.post("/history", async (req, res) => {
             subject: emailContent.subject,
             text: emailContent.text,
             html: emailContent.html,
-            attachments: [{
-                filename: 'logo1.png',
-                path: '/images/to/logo1.png',
-                cid: 'unique@gmail.com'
-            }]
+            
         };
-        
-        const html = `
-        <img src= "cid:unique@gmail.com" width:"200">`
-       
         
 
         // Send the email
