@@ -22,14 +22,6 @@
     margin-bottom: 70px;
 }
 
-#journal-entries {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    letter-spacing: 0.1em;
-}
 
 #not-enough-entries {
     font-weight: bold;
@@ -38,4 +30,28 @@
 
 #entries {
     padding: 10px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+#journal-entries {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: auto;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+}
+
+#footer {
+    flex-shrink: 0;
 }

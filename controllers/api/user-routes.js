@@ -3,6 +3,8 @@ const { body, validationResult } = require('express-validator');
 const { Sequelize, Op } = require('sequelize');
 const bcrypt = require('bcrypt');
 const { User } = require('../../models');
+
+//Render views of login and signup
 router.get('/signup', (req, res) => {
   res.render('signup', {
       layout: 'main',
@@ -15,6 +17,8 @@ router.get('/login', (req, res) => {
     currentPath: req.path
 });
 });
+
+//Signup Route
 router.post('/signup', [
   body('username').trim().isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
   body('email').trim().isEmail().withMessage('Must be a valid email address'),
@@ -42,7 +46,7 @@ router.post('/signup', [
         ]
       }
     });
-    //Handling errors if user exist
+    //Handling errors if user exist, username, email, phone number
     if (existingUser) {
       console.log('Existing user found:', existingUser.toJSON());
       if (existingUser.username.toLowerCase() === username) {
@@ -90,6 +94,8 @@ router.post('/signup', [
     res.status(500).json({ error: 'An unexpected error occurred. Please try again.' });
   }
 });
+
+//Login route
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -129,6 +135,8 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ success: false, message: 'An error occurred during login', error: err.message });
   }
 });
+
+
 //Logout route
 router.post('/logout', (req, res) => {
   req.session.destroy((err) => {
@@ -140,11 +148,13 @@ router.post('/logout', (req, res) => {
     res.redirect('/login');
   });
 });
-//email route
-router.get('/dashboard/send-email', (req, res) => {
-  res.render('dashboard', {
-      layout: 'main',
-      currentPath: req.path
-  });
-});
+
+
+// router.get('/dashboard/send-email', (req, res) => {
+//   res.render('dashboard', {
+//       layout: 'main',
+//       currentPath: req.path
+//   });
+// });
+
 module.exports = router;
